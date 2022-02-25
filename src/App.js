@@ -17,6 +17,7 @@ class App extends React.Component {
       image: '',
       rare: 'normal',
       trunfo: false,
+      isSaveButtonDisabled: true,
       save: false,
     };
   }
@@ -27,12 +28,35 @@ class App extends React.Component {
 
     this.setState({
       [name]: value,
+    }, () => {
+      const { name, description, attr, attr2, attr3, image,
+        rare } = this.state;
+
+      this.setState({
+        isSaveButtonDisabled: false,
+      });
+      const attr01 = Number(attr);
+      const attr02 = Number(attr2);
+      const attr03 = Number(attr3);
+
+      const maximum = 90; // lint pediu pra colocar em uma const
+      const sum = 210;
+
+      if (attr01 < 0 || attr01 > maximum
+    || attr02 < 0 || attr02 > maximum
+    || attr03 < 0 || attr03 > maximum
+    || attr01 + attr02 + attr03 > sum
+    || !name || !description || !image || !rare) {
+        this.setState({
+          isSaveButtonDisabled: true,
+        });
+      }
     });
   }
 
   render() {
-    const { name,
-      description, attr, attr2, attr3, image, rare, trunfo, save } = this.state;
+    const { name, description, attr, attr2,
+      attr3, image, rare, trunfo, save, isSaveButtonDisabled } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -46,6 +70,7 @@ class App extends React.Component {
           cardRare={ rare }
           cardTrunfo={ trunfo }
           onInputChange={ this.onInputChange }
+          isSaveButtonDisabled={ isSaveButtonDisabled }
           onSaveButtonClick={ save }
         />
         <Card
