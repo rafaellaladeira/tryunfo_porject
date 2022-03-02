@@ -15,4 +15,7 @@ code {
 form {
   display: flex;
   flex-direction: column;
+  border: 2px;
+  border-color: rgb(70, 150, 18);
+  border-style: dotted;
 }
