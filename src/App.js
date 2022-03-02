@@ -17,8 +17,9 @@ class App extends React.Component {
       image: '',
       rare: 'normal',
       trunfo: false,
+      hasTrunfo: false,
       isSaveButtonDisabled: true,
-      // save: true,
+      save: [],
     };
   }
 
@@ -55,7 +56,17 @@ class App extends React.Component {
   }
 
   onSaveButtonClick = (event) => {
+    const { trunfo, save } = this.state;
     event.preventDefault();
+    if (trunfo === true) {
+      this.setState({
+        hasTrunfo: true,
+      });
+    }
+    this.setState((prevState) => ({
+      save: [...save, prevState],
+    }));
+
     this.setState({
       name: '',
       description: '',
@@ -72,7 +83,7 @@ class App extends React.Component {
 
   render() {
     const { name, description, attr, attr2,
-      attr3, image, rare, trunfo, isSaveButtonDisabled } = this.state;
+      attr3, image, rare, trunfo, hasTrunfo, isSaveButtonDisabled } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -84,6 +95,7 @@ class App extends React.Component {
           cardAttr3={ attr3 }
           cardImage={ image }
           cardRare={ rare }
+          hasTrunfo={ hasTrunfo }
           cardTrunfo={ trunfo }
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
