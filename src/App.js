@@ -63,6 +63,7 @@ class App extends React.Component {
         hasTrunfo: true,
       });
     }
+
     this.setState((prevState) => ({
       save: [...save, prevState],
     }));
@@ -83,7 +84,7 @@ class App extends React.Component {
 
   render() {
     const { name, description, attr, attr2,
-      attr3, image, rare, trunfo, hasTrunfo, isSaveButtonDisabled } = this.state;
+      attr3, image, rare, trunfo, hasTrunfo, isSaveButtonDisabled, save } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -111,6 +112,22 @@ class App extends React.Component {
           cardRare={ rare }
           cardTrunfo={ trunfo }
         />
+        {
+          save.map((data) => (
+            <div key={ data.name }>
+              <Card
+                cardName={ data.name }
+                cardDescription={ data.description }
+                cardAttr1={ data.attr }
+                cardAttr2={ data.attr2 }
+                cardAttr3={ data.attr3 }
+                cardImage={ data.image }
+                cardRare={ data.rare }
+                cardTrunfo={ data.trunfo }
+              />
+            </div>
+          ))
+        }
       </div>
     );
   }
